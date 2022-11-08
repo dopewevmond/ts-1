@@ -1,0 +1,3 @@
+# ignore compiled JS
+dist
+node_modules
