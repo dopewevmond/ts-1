@@ -11,7 +11,7 @@ class HomeRouter implements Controller {
   }
   
   private setupRoutes(): void {
-    this.router.get(this.path, AnalyticsMiddleware, this.homeHandlerGet)
+    this.router.get(this.path, this.homeHandlerGet)
   }
 
   private homeHandlerGet(req: Request, res: Response): void {

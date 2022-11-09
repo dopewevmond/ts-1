@@ -2,6 +2,7 @@ import * as express from 'express'
 import * as bodyparser from 'body-parser'
 import Controller from './controllers/controller.interface'
 import * as path from 'path'
+import AnalyticsMiddleware from './middleware/middleware.analytics'
 
 class App {
   public app: express.Application
@@ -18,10 +19,12 @@ class App {
      * Mount middleware and setup view engine
      */
   private setupApplication (): void {
+    this.app.set('trust proxy', true)
     this.app.use(bodyparser.urlencoded({ extended: true }))
     this.app.use('/public', express.static(path.join(__dirname, '/../public')))
     this.app.set('views', path.join(__dirname, '/../views'))
     this.app.set('view engine', 'pug')
+    this.app.use(AnalyticsMiddleware)
   }
 
   public listen (): void {
