@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction} from 'express'
+import requestDetails from '../helpers/helpers.requestdetails'
 
-function AnalyticsMiddleware(req: Request, res: Response, next: NextFunction) {
-  const time = new Date().toISOString()
-  console.log(`${req.method} ${req.path} -- ${req.ip} -- ${time} -- ${JSON.stringify(req.query)} -- ${req.statusCode}`)
+function AnalyticsMiddleware(req: Request, res: Response, next: NextFunction): void {
+  console.log(requestDetails(req))
   next()
 }
 

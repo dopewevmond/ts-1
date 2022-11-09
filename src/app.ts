@@ -3,6 +3,7 @@ import * as bodyparser from 'body-parser'
 import Controller from './controllers/controller.interface'
 import * as path from 'path'
 import AnalyticsMiddleware from './middleware/middleware.analytics'
+import LoggingMiddleware from './middleware/middleware.logging'
 
 class App {
   public app: express.Application
@@ -25,6 +26,7 @@ class App {
     this.app.set('views', path.join(__dirname, '/../views'))
     this.app.set('view engine', 'pug')
     this.app.use(AnalyticsMiddleware)
+    this.app.use(LoggingMiddleware)
   }
 
   public listen (): void {
