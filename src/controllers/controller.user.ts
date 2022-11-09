@@ -1,20 +1,20 @@
-import Controller from "./controller.interface"
-import { Router, Request, Response} from 'express'
+import Controller from './controller.interface'
+import { Router, Request, Response } from 'express'
 
 class UserController implements Controller {
-  public path = "/users"
+  public path = '/users'
   public router = Router()
 
-  constructor() {
+  constructor () {
     this.setupRoutes()
   }
 
-  private setupRoutes(): void {
+  private setupRoutes (): void {
     this.router.get('/', this.HomeHandler)
   }
 
-  private HomeHandler(req: Request, res: Response): void {
-    res.send("user controller")
+  private HomeHandler (req: Request, res: Response): void {
+    res.send('user controller')
   }
 }
 

@@ -1,6 +1,5 @@
-import Controller from "./controller.interface";
-import AnalyticsMiddleware from "../middleware/middleware.analytics";
-import { Router, Request, Response, NextFunction } from 'express'
+import Controller from './controller.interface'
+import { Router, Request, Response } from 'express'
 
 class HomeRouter implements Controller {
   public path = '/'
@@ -9,13 +8,13 @@ class HomeRouter implements Controller {
   constructor () {
     this.setupRoutes()
   }
-  
-  private setupRoutes(): void {
+
+  private setupRoutes (): void {
     this.router.get(this.path, this.homeHandlerGet)
   }
 
-  private homeHandlerGet(req: Request, res: Response): void {
-    res.send("homepage")
+  private homeHandlerGet (req: Request, res: Response): void {
+    res.send('homepage')
   }
 }
 
