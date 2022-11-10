@@ -1,6 +1,6 @@
-import App from "./app"
-import HomeRouter from "./controllers/controller.main"
-import UserController from "./controllers/controller.user"
+import App from './app'
+import HomeRouter from './controllers/controller.main'
+import UserController from './controllers/controller.user'
 
 const app = new App([
   new HomeRouter(),

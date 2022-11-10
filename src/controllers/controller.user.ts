@@ -1,5 +1,8 @@
 import Controller from './controller.interface'
 import { Router, Request, Response } from 'express'
+import TopUsers from './controller.user.topuser'
+
+const topUsersController = new TopUsers()
 
 class UserController implements Controller {
   public path = '/users'
@@ -11,6 +14,7 @@ class UserController implements Controller {
 
   private setupRoutes (): void {
     this.router.get('/', this.HomeHandler)
+    this.router.use(topUsersController.path, topUsersController.router)
   }
 
   private HomeHandler (req: Request, res: Response): void {
