@@ -1,23 +1,28 @@
 import { Request, Response, NextFunction } from 'express'
-const requestTracker: Array<{ ip: string, timeOfReq: number }> = []
-let reqsInLastMinute: number
-const ALLOWED_REQS_PER_MINUTE = 10
+const SECONDS_IN_TIMEFRAME = 60
+const MAXIMUM_REQS_PER_TIMEFRAME = 10
 
-// fixed window counter rate limiter
+// stores the IP and time of a request
+const requestTracker: Array<{ ip: string, timeOfReq: number }> = []
+
+// Using the Sliding window counter method for the rate limiter
+// it checks the number of requests a particular user (based on their IP) ...
+// ... makes in a particular timeframe. if it less than the maximum requests allowed ...
+// ... in the timeframe, call the next function. else, end the request here
+
 function RateLimitMiddleware (req: Request, res: Response, next: NextFunction): void {
-  reqsInLastMinute = requestTracker
+  const reqsInLastMinute = requestTracker
     .filter((request) => request.ip === req.ip)
     .filter((request) => {
-      return (new Date().getTime() - request.timeOfReq) / 1000 <= 60
+      return (new Date().getTime() - request.timeOfReq) / 1000 <= SECONDS_IN_TIMEFRAME
     }).length
 
-  if (reqsInLastMinute < ALLOWED_REQS_PER_MINUTE) {
-    console.log('allowed')
+  if (reqsInLastMinute < MAXIMUM_REQS_PER_TIMEFRAME) {
     requestTracker.push({ ip: req.ip, timeOfReq: new Date().getTime() })
+    next()
   } else {
-    console.log('not allowed')
+    res.send('exceeded rate limit, not allowed')
   }
-  next()
 }
 
 export default RateLimitMiddleware
