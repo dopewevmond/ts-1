@@ -1,5 +1,6 @@
 import Controller from './controller.interface'
 import { Router, Request, Response } from 'express'
+import LoggingMiddleware from '../middleware/middleware.logging'
 
 class HomeRouter implements Controller {
   public path = '/'
@@ -10,6 +11,8 @@ class HomeRouter implements Controller {
   }
 
   private setupRoutes (): void {
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    this.router.all('/', LoggingMiddleware)
     this.router.get(this.path, this.homeHandlerGet)
   }
 

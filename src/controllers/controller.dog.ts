@@ -1,8 +1,9 @@
 import Controller from './controller.interface'
 import { Router, Request, Response } from 'express'
 import { readFile } from 'fs/promises'
+import AnalyticsMiddleware from '../middleware/middleware.analytics'
 
-class UserController implements Controller {
+class DogBreeds implements Controller {
   public path = '/dogs'
   public router = Router()
 
@@ -11,8 +12,9 @@ class UserController implements Controller {
   }
 
   private setupRoutes (): void {
+    this.router.use(AnalyticsMiddleware)
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    this.router.get('/', this.homeHandler)
+    this.router.get(this.path, this.homeHandler)
   }
 
   private async homeHandler (req: Request, res: Response): Promise<void> {
@@ -21,4 +23,4 @@ class UserController implements Controller {
   }
 }
 
-export default UserController
+export default DogBreeds
