@@ -4,6 +4,7 @@ import Controller from './controllers/controller.interface'
 import * as path from 'path'
 import AnalyticsMiddleware from './middleware/middleware.analytics'
 import LoggingMiddleware from './middleware/middleware.logging'
+import RateLimitMiddleware from './middleware/middleware.ratelimit'
 
 class App {
   public app: express.Application
@@ -26,7 +27,9 @@ class App {
     this.app.set('views', path.join(__dirname, '/../views'))
     this.app.set('view engine', 'pug')
     this.app.use(AnalyticsMiddleware)
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     this.app.use(LoggingMiddleware)
+    this.app.use(RateLimitMiddleware)
   }
 
   public listen (): void {

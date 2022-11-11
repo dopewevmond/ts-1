@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "commonjs",
   "scripts": {
-    "dev": "ts-node ./src/server.ts",
+    "dev": "nodemon ./src/server.ts",
     "build": "rm ./dist -r && tsc",
     "build:run": "rm ./dist -r && tsc && node ./dist/server.js"
   },

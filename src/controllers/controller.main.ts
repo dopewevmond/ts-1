@@ -14,7 +14,9 @@ class HomeRouter implements Controller {
   }
 
   private homeHandlerGet (req: Request, res: Response): void {
-    res.send('homepage')
+    res.json({
+      data: 'Home controller'
+    })
   }
 }
 
