@@ -12,7 +12,7 @@ class HomeRouter implements Controller {
 
   private setupRoutes (): void {
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    this.router.all('/', LoggingMiddleware)
+    this.router.all(this.path, LoggingMiddleware)
     this.router.get(this.path, this.homeHandlerGet)
   }
 
