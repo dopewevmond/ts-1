@@ -13,9 +13,9 @@ const requestTracker: Array<{ ip: string, timeOfReq: number }> = []
 function RateLimitMiddleware (req: Request, res: Response, next: NextFunction): void {
   const reqsInLastMinute = requestTracker
     .filter((request) => request.ip === req.ip)
-    .filter((request) => {
-      return (new Date().getTime() - request.timeOfReq) / 1000 <= SECONDS_IN_TIMEFRAME
-    }).length
+    .filter((request) =>
+      (new Date().getTime() - request.timeOfReq) / 1000 <= SECONDS_IN_TIMEFRAME
+    ).length
 
   if (reqsInLastMinute < MAXIMUM_REQS_PER_TIMEFRAME) {
     requestTracker.push({ ip: req.ip, timeOfReq: new Date().getTime() })
